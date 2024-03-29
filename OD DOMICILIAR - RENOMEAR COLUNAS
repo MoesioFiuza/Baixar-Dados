@@ -1,0 +1,247 @@
+import pandas as pd
+
+planilha = r'cole aqui o diretório'
+df_deslocamento = pd.read_excel(planilha, sheet_name='3. Deslocamento')
+
+
+abas_excel = pd.read_excel(planilha, sheet_name=None)
+
+nome_aba = '1. Dados do Domicílio'
+nome_aba_motocicleta = '1.20 Motocicleta'
+nome_aba_carro = '1.21. Carro'
+nome_aba_entregas = '3.14 Informações de Entregas'
+nome_aba_serviços = '3.15 Informações de Serviços'
+nome_aba_morador = '2. Morador'
+nome_aba_deslocamento = '3. Deslocamento'
+nome_aba_transporte = '3.8 Meio de Transporte declarad'
+
+novo_nome_colunas_domicilio = {
+    'P_1.1': 'Quantidade_Pessoas',
+    'P_1.2': 'Quantidade_Famílias',
+    'P_1.3': 'Condição_Moradia',
+    'P_1.4': 'Possui_Geladeira',
+    'P_1.5': 'Possui_Ar_Condicionado',
+    'P_1.6': 'Possui_Freezer',
+    'P_1.7': 'Possui_Lava_Louças',
+    'P_1.8': 'Possui_Máquina_Lavar_Roupa',
+    'P_1.9': 'Possui_Máquina_Secar_Roupa',
+    'P_1.10': 'Possui_Microondas',
+    'P_1.11': 'Possui_Computador_Notebook',
+    'P_1.12': 'Possui_Smartphone',
+    'P_1.13': 'Possui_Televisão',
+    'P_1.14': 'Possui_Água_Encanada',
+    'P_1.15': 'Quantidade_Banheiros',
+    'P_1.15.1': 'Banheiros_Com_Banho_Quente',
+    'P_1.16': 'Quantidade_Dormitórios',
+    'P_1.17': 'Quantidade_Empregados_Domésticos',
+    'P_1.18': 'Possui_Bicicleta_Convencional',
+    'P_1.19': 'Possui_Bicicleta_Elétrica',
+    'P_1.22': 'Possui_Outros_Veículos',
+    'P_1.23': 'Sugestões_Comentários'
+}
+
+novo_nome_colunas_motocicleta = {
+    'P_1.20.1': 'Modelo_Motocicleta',
+    'P_1.20.2': 'Marca_Motocicleta',
+    'P_1.20.3': 'Ano_Motocicleta',
+    'P_1.20.4': 'Combustivel_Motocicleta'
+}
+
+novo_nome_colunas_carro = {
+    'P_1.21.1': 'Qual o Modelo' ,
+    'P_1.21.2' : 'Qual a Marca' ,
+    'P_1.21.3' : 'Qual o Ano' ,
+    'P_1.21.4' : 'Qual o tipo de combustível'
+}
+
+novo_nome_colunas_entregas = {
+    'P_3.14' : 'Solicitou Entrega no dia Anterior' ,
+    'P_3.14.1' : 'Quantas Entregas Foram Solicitadas' ,
+    'P_3.14.2' : 'Tipo de Entrega Solicitada' ,
+    'P_3.14.3' : 'Modo de Transporte do Entregador' ,
+}
+
+novo_nome_colunas_serviços = {
+   'P_3.15' : 'Solicitou Serviço do dia Anterior' ,
+   'P_3.15.1' : 'Quantos Serviços foram Solcitadas' ,
+   'P_3.15.2' : 'Tipo(s) de Serviço(s) SPlcitado(s)' ,
+   'P_3.15.3' : 'Modo de Transporte do PRestador de Serviço' 
+}
+
+novo_nome_colunas_morador = {
+    'P_2.1': 'Primeiro_Nome',
+    'P_2.2': 'Situacao_Morador',
+    'P_2.3': 'Genero',
+    'P_2.3.1': 'Outro_Genero',
+    'P_2.4': 'Cor_Raca',
+    'P_2.5': 'Idade',
+    'P_2.6': 'Grau_Instrucao',
+    'P_2.6.1.1' : 'Nome da Creche/Pre escola' , 
+    'P_2.6.1.2.1' : 'Município CRECHE/Pre Escola' ,
+    'P_2.6.1.3.1' : 'Bairro Creche/Pre escola' , 
+    'P_2.6.1.4.1' : 'endereço da creche/pré escola ' , 
+    'P_2.7': 'Estudante',
+    'P_2.7.1': 'Nivel_Ensino_Matriculado',
+    'P_2.7.1.1' : 'O Formato das Aulas é Presencial' ,
+    'P_2.7.1.1.1' : 'Qual o nome da instituição' ,
+    'P_2.7.1.1.2' : 'Morador informou o Municipio' ,
+    'P_2.7.1.1.1.1' : 'Morador_Informou_Nome_Instituicao',
+    'P_2.7.1.1.2.1': 'Morador_Sabe_Informar_Municipio',
+    'P_2.7.1.1.2.1.1': 'Municipio',
+    'P_2.7.1.4.2' : ' O Formato das aulas é presencial (2)' ,
+    'P_2.7.1.1.3.1': 'Morador_Sabe_Informar_Bairro',
+    'P_2.7.1.1.3.1.1': 'Bairro',
+    'P_2.7.1.4.2.1' : 'Qual o nome da instiuição (2)' ,
+    'P_2.7.1.4.2.2' : 'Morador sabe informar o municipio (2)' ,
+    'P_2.7.1.4.2.3' : 'Morador sabe informar o bairro (2)' ,
+    'P_2.7.1.4.2.4' : 'Morador sabe informar o endereço(2)' ,
+    'P_2.7.1.1.4.1': 'Morador_Sabe_Informar_Endereco',
+    'P_2.7.1.1.4.1.1': 'Endereco',
+    'P_2.7.1.3': 'Tipo_Instituicao',
+    'P_2.7.1.1.3': 'Morador_Sabe_Informar_Bairro_2',
+    'P_2.7.1.1.3.1': 'Bairro_2',
+    'P_2.7.1.1.4': 'Morador_Sabe_Informar_Endereco_2',
+    'P_2.7.1.1.4.1': 'Endereco_2',
+    'P_2.7.1.4': 'Estudante_Outra_Instituicao',
+    'P_2.7.1.4.1': 'Nivel_Ensino_Matriculado_Outro',
+    'P_2.7.1.4.2.1.1': 'Nome_Instituicao_Outro',
+    'P_2.7.1.4.2.1.1.1': 'Morador_Informou_Nome_Instituicao_Outro',
+    'P_2.7.1.4.2.2.1': 'Morador_Sabe_Informar_Municipio_Outro',
+    'P_2.7.1.4.2.2.1.1': 'Municipio_Outro',
+    'P_2.7.1.4.2.3.1': 'Morador_Sabe_Informar_Bairro_Outro',
+    'P_2.7.1.4.2.3.1.1': 'Bairro_Outro',
+    'P_2.7.1.4.2.4.1': 'Morador_Sabe_Informar_Endereco_Outro',
+    'P_2.7.1.4.2.4.1.1': 'Endereco_Outro',
+    'P_2.7.1.4.3': 'Tipo_Instituicao_Outro',
+    'P_2.7.2.0': 'Possui_Trabalho',
+    'P_2.7.2': 'Modelo_Trabalho',
+    'P_2.7.2.1.1': 'Morador_Informou_Nome_Local_Trabalho',
+    'P_2.7.2.2.1': 'Morador_Sabe_Informar_Municipio_Trabalho',
+    'P_2.7.2.1': 'Nome_Local_Trabalho',
+    'P_2.7.2.2.2.1': 'Morador_Sabe_Informar_Bairro_Trabalho',
+    'P_2.7.2.2.2.1.1': 'Bairro_Trabalho',
+    'P_2.7.2.2.3.1': 'Morador_Sabe_Informar_Endereco_Trabalho',
+    'P_2.7.2.2.3.1.1': 'Endereco_Trabalho',
+    'P_2.7.2.3': 'Possui_Outro_Trabalho',
+    'P_2.7.3': 'Tipo_Trabalho',
+    'P_2.7.3.1': 'Modelo_Trabalho_Outro',
+    'P_2.7.3.1.1': 'Nome_Local_Trabalho_Outro',
+    'P_2.7.3.1.1.1': 'Morador_Informou_Nome_Local_Trabalho_Outro',
+    'P_2.7.3.1.2.1': 'Morador_Sabe_Informar_Municipio_Trabalho_Outro',
+    'P_2.7.3.1.2.1.1': 'Municipio_Trabalho_Outro',
+    'P_2.7.3.1.3.1': 'Morador_Sabe_Informar_Bairro_Trabalho_Outro',
+    'P_2.7.3.1.3.1.1': 'Bairro_Trabalho_Outro',
+    'P_2.7.3.1.4.1': 'Morador_Sabe_Informar_Endereco_Trabalho_Outro',
+    'P_2.7.3.1.4.1.1': 'Endereco_Trabalho_Outro',
+    'P_2.10': 'Faixa_Renda',
+    'P_2.11': 'Possui_Mobilidade_Reducao',
+    'P_2.12': 'Responsavel_Mobilidade_Reducao',
+    'P_2.12.1': 'Pessoa_Com_Mobilidade_Reducao_Moradora',
+    'P_3.0': 'Taxista_Motorista_Aplicativo_Entregador',
+    'P_3.1': 'Fez_Deslocamento_Ontem',
+    'P_3.1.1': 'Motivo_Nao_Deslocou_Ontem',
+    'P_3.1.1.1': 'Outros_Motivo_Nao_Deslocou_Ontem',
+    'P_3.2': 'Quantos_Deslocamentos_Ontem',
+    'P_3.14': 'Solicitou_Entrega_Anteriormente',
+    'P_3.14.1': 'Quantas_Entregas_Solicitadas',
+    'P_3.15': 'Solicitou_Servico_Anteriormente',
+    'P_3.15.1': 'Quantos_Servicos_Solicitados',
+    'P_0.7': 'Telefone_Morador'
+}
+
+novo_nome_colunas_deslocamento ={
+    'P_3.3': 'Ponto_Partida',
+    'P_3.3.1': 'Outros_Ponto_Partida',
+    'P_3.3.2': 'Nome_Local_Partida',
+    'P_3.3.2.1': 'Morador_Informou_Nome_Local_Partida',
+    'P_3.3.3': 'Morador_Sabe_Informar_Municipio_Partida',
+    'P_3.3.3.1': 'Municipio_Partida',
+    'P_3.3.3.2': 'Morador_Sabe_Informar_Bairro_Partida',
+    'P_3.3.3.2.1': 'Bairro_Partida',
+    'P_3.3.3.3': 'Morador_Sabe_Informar_Endereco_Partida',
+    'P_3.3.3.3.1': 'Endereco_Partida',
+    'P_3.3.3.3.2': 'Endereco_Partida_Mapa',
+    'P_3.3.4': 'Motivo_Estar_Local_Partida',
+    'P_3.3.4.1': 'Outros_Motivo_Estar_Local_Partida',
+    'P_3.4': 'Hora_Inicio_Deslocamento',
+    'P_3.5': 'Local_Destino',
+    'P_3.5.1': 'Outros_Local_Destino',
+    'P_3.5.2': 'Nome_Local_Destino',
+    'P_3.5.2.1': 'Morador_Informou_Nome_Local_Destino',
+    'P_3.5.3': 'Morador_Sabe_Informar_Municipio_Destino',
+    'P_3.5.3.1': 'Municipio_Destino',
+    'P_3.5.3.2': 'Morador_Sabe_Informar_Bairro_Destino',
+    'P_3.5.3.2.1': 'Bairro_Destino',
+    'P_3.5.3.3': 'Morador_Sabe_Informar_Endereco_Destino',
+    'P_3.5.3.3.1': 'Endereco_Destino',
+    'P_3.5.3.3.2': 'Endereco_Destino_Mapa',
+    'P_3.5.4': 'Motivo_Estar_Local_Destino',
+    'P_3.5.4.1': 'Outros_Motivo_Estar_Local_Destino',
+    'P_3.6': 'Hora_Chegada_Destino',
+    'P_3.7': 'Qtd_Modos_Transporte_Utilizados',
+    'P_3.8': 'Modo_Transporte_Utilizado',
+    'P_3.8.1': 'Motivo_Escolha_Modo_Transporte',
+    'P_3.8.2': 'Motivo_Viajou_APe_Bicicleta',
+    'P_3.9': 'Tipo_Estacionamento',
+    'P_3.9.1': 'Forma_Pagamento_Estacionamento',
+    'P_3.9.2': 'Custo_Estacionamento',
+    'P_3.10': 'Forma_Pagamento_Viagem',
+    'P_3.10.1': 'Valor_Total_Pago_Origem_Destino',
+    'P_3.10.2': 'Integracao_Realizada',
+    'P_3.10.2.1': 'Tipo_Integracao',
+    'P_3.10.2.2': 'Sabe_Informar_Local_Integracao',
+    'P_3.10.2.2.1': 'Nome_Informal_Ponto_Referencia_Integracao',
+    'P_3.10.3': 'Linhas_Onibus_Trensurb_Utilizadas',
+    'P_3.10.4': 'Sentido_Bairro_Centro_Ou_Centro_Bairro',
+    'P_3.11': 'Tempo_Andou_Local_Origem_Embarque',
+    'P_3.11.1': 'Inserir_Novo_Meio_Transporte_Origem',
+    'P_3.12': 'Tempo_Andou_Local_Desembarque_Modo_Seguinte',
+    'P_3.12.2': 'Inserir_Novo_Meio_Transporte_Desembarque',
+    'P_3.13': 'Tempo_Duracao_Caminhada'
+}
+
+novo_nome_transporte ={
+    'P_3.8' : 'QUAL FOI O MODO DE TRANSPORTE UTILIZADO NESSE DESLOCAMENTO?',
+    'P_3.8.1' : 'POR QUE ESCOLHEU ESSE MODO DE TRANSPORTE?',
+    'P_3.8.2' : 'POR QUE VIAJOU A PÉ OU DE BICICLETA?',
+    'P_3.9' : 'QUAL FOI O TIPO DE ESTACIONAMENTO?',
+    'P_3.9.1' : 'QUAL FOI A FORMA DE PAGAMENTO?',
+    'P_3.9.2' : 'QUAL O CUSTO DO ESTACIONAMENTO?',
+    'P_3.10' : 'QUAL FOI A FORMA DE PAGAMENTO',
+    'P_3.10.1' : 'QUAL O TOTAL PAGO DA ORIGEM ATÉ O DESTINO',
+    'P_3.10.1' : 'HOUVE INTEGRAÇÃO PARA REALIZAR A VIAGEM',
+    'P_3.10.2' : 'QUAL FOI O TIPO DE INTEGRAÇÃO',
+    'P_3.10.2.1' : 'SABE INFORMAR O LOCAL DA INTEGRAÇÃO DENTRE AS OPÇÕES INDICADAS?',
+    'P_3.10.2.2' : 'QUAL O NOME INFORMAL OU PONTO DE REFERÊNCIA DA INTEGRAÇÃO?',
+    'P_3.10.2.2.1' : 'QUAL A(S) LINHA(S) DE ÔNIBUS/TRENSURB (METRÔ) UTILIZADA(S)?',
+    'P_3.10.4' : 'O SENTIDO É BAIRRO-CENTRO OU CENTRO-BAIRRO?',
+    'P_3.11' : 'QUANTO TEMPO (MINUTOS) ANDOU DO LOCAL DE ORIGEM ATÉ O LOCAL DE EMBARQUE?',
+    'P_3.13' : ' MEIO DE TRANSPORTE ATÉ LOCAL DE DESEMBARQUE'
+}
+
+
+df_deslocamento['ORIGEM_FORMATADA'] = ''
+df_deslocamento['DESTINO_FORMATADO'] = ''
+
+abas_excel[nome_aba_transporte].rename(columns=novo_nome_transporte)
+abas_excel[nome_aba_deslocamento].rename(columns=novo_nome_colunas_deslocamento, inplace=True)
+abas_excel[nome_aba_morador].rename(columns=novo_nome_colunas_morador, inplace=True)
+abas_excel[nome_aba_serviços].rename(columns=novo_nome_colunas_serviços, inplace=True)
+abas_excel[nome_aba_entregas].rename(columns=novo_nome_colunas_entregas, inplace=True)
+abas_excel[nome_aba_carro].rename(columns=novo_nome_colunas_carro, inplace=True)
+abas_excel[nome_aba_motocicleta].rename(columns=novo_nome_colunas_motocicleta, inplace=True)
+abas_excel[nome_aba].rename(columns=novo_nome_colunas_domicilio, inplace=True)
+
+with pd.ExcelWriter(planilha, engine='xlsxwriter') as writer:
+    df_deslocamento.to_excel(writer, sheet_name='3. Deslocamento', index=False)
+
+
+with pd.ExcelWriter(planilha, engine='xlsxwriter') as writer:
+    for aba, df in abas_excel.items():
+       
+        df.rename(columns=novo_nome_colunas_domicilio, inplace=True)
+        
+        df = df.dropna(axis=1, how='all')
+        
+       
+        df.to_excel(writer, sheet_name=aba, index=False)
