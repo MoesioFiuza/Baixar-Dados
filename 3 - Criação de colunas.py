@@ -1,6 +1,6 @@
 import pandas as pd
 
-planilha = r'C:\Users\maest\OneDrive\Área de Trabalho\tratamento\tratamentoResultado_Final.xlsx'
+planilha = r'cole aqui o diretório'
 df_deslocamento = pd.read_excel(planilha, sheet_name='3. Deslocamento')
 df_menu = pd.read_excel(planilha, sheet_name='MENU')
 df_morador = pd.read_excel(planilha, sheet_name='2. Morador')
