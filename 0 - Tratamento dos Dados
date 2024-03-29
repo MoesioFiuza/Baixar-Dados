@@ -1,0 +1,23 @@
+import subprocess
+import os
+import sys
+
+def run_script(file_name):
+    script_path = os.path.join("cole o diretório aqui", file_name)
+    subprocess.run([sys.executable, script_path])
+
+if __name__ == "__main__":
+    scripts = [
+        "1 - Baixar os dados.py",
+        "2 - Renomear colunas.py",
+        "3 - Criação de colunas.py",
+        "4 - aba morador.py",
+        "5 - aba deslocamento.py",
+        "6 - união prévia.py",
+        "7 - Zonas.py"
+    ]
+    
+    for script in scripts:
+        run_script(script)
+    
+    print("Scripts executados com sucesso.")
