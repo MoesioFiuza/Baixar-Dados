@@ -1,0 +1,40 @@
+import pandas as pd
+import xlsxwriter
+import warnings
+warnings.simplefilter("ignore", category=UserWarning)
+
+menu = pd.read_excel(r'cole o diretório aqui', sheet_name='MENU')
+
+deslocamento = pd.read_excel(r'cole o diretório aqui', sheet_name='3. Deslocamento')
+transporte = pd.read_excel(r'cole o diretório aqui', sheet_name='3.8 Meio de Transporte declarad')
+morador = pd.read_excel(r'cole o diretório aqui', sheet_name='2. Morador')
+entregas = pd.read_excel(r'cole o diretório aqui', sheet_name='3.14 Informações de Entregas')
+servicos = pd.read_excel(r'cole o diretório aqui', sheet_name='3.15 Informações de Serviços')
+domicilio = pd.read_excel(r'cole o diretório aqui', sheet_name='1. Dados do Domicílio')
+carro = pd.read_excel(r'cole o diretório aqui', sheet_name='1.21. Carro')
+motocicleta = pd.read_excel(r'cole o diretório aqui', sheet_name='1.20 Motocicleta')
+
+with pd.ExcelWriter(r'cole o diretório aqui', engine='xlsxwriter') as writer:
+
+    menu.to_excel(writer, sheet_name='MENU', index=False)
+
+
+    result_deslocamento = pd.merge(deslocamento, transporte, on='ID_Deslocamento', how='left')
+
+
+    entregas_agrupadas = entregas.groupby('ID_MORADOR').agg(lambda x: ', '.join(x.dropna().astype(str))).reset_index()
+    servicos_agrupados = servicos.groupby('ID_MORADOR').agg(lambda x: ', '.join(x.dropna().astype(str))).reset_index()
+
+
+    result_morador_merged = pd.merge(morador, pd.merge(entregas_agrupadas, servicos_agrupados, on='ID_MORADOR', how='left'), on='ID_MORADOR', how='left', suffixes=('', '_Entrega_Servico'))
+
+
+    carro_agrupado = carro.groupby('ID_DOMICILIO').agg(lambda x: ', '.join(x.dropna().astype(str))).reset_index()
+    motocicleta_agrupada = motocicleta.groupby('ID_DOMICILIO').agg(lambda x: ', '.join(x.dropna().astype(str))).reset_index()
+
+
+    result_domicilio = pd.merge(domicilio, pd.merge(carro_agrupado, motocicleta_agrupada, on='ID_DOMICILIO', how='left', suffixes=('', '_Moto')), on='ID_DOMICILIO', how='left', suffixes=('', '_Carro'))
+
+    result_deslocamento.to_excel(writer, sheet_name='Deslocamento', index=False)
+    result_morador_merged.to_excel(writer, sheet_name='Morador', index=False)
+    result_domicilio.to_excel(writer, sheet_name='Domicilio', index=False)
