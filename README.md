@@ -1,0 +1,1 @@
+Saudações! Esse processo baixa, e faz o tratamento inicial dos dados. Antes de executar esses scripts, é preciso atualizar o diretório de entrada e saída dos referidos. Uma vez feito isso, basta executar o script número 0: todo processo acontecerá de forma automática. 
