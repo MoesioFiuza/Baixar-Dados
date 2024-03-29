@@ -1,0 +1,16 @@
+import pandas as pd
+
+
+BD = r'cole o diretório aqui'
+geocodin = r'cole o diretório aqui\_ARQUIVO FINAL GEOCODINGS.xlsx'
+
+df_bd = pd.read_excel(BD, sheet_name=None)  
+df_geocodin = pd.read_excel(geocodin, sheet_name='DOMICILIOS')
+
+df_geocodin = df_geocodin.drop_duplicates('IDENTIFICADOR DO DOMICILIO')
+
+df_bd['MENU']['ZONA'] = df_bd['MENU'].merge(df_geocodin[['IDENTIFICADOR DO DOMICILIO', 'ZT']], how='left', on='IDENTIFICADOR DO DOMICILIO')['ZT']
+
+with pd.ExcelWriter(BD, engine='openpyxl') as writer:
+    for sheet_name, df in df_bd.items():
+        df.to_excel(writer, sheet_name=sheet_name, index=False)
