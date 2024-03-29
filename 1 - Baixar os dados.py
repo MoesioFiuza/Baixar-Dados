@@ -1,8 +1,8 @@
 import pandas as pd
 
 
-url1 = 'https://docs.google.com/spreadsheets/d/1SHv8-QyghCFRGf2wCLX4A2EwDrMQqRCBvD6W8yg3cns/export?format=xlsx'
-url2 = 'https://docs.google.com/spreadsheets/d/1pvSDlghZDffZYPGhn8d5dHh8VTDfHRL9CtF0ih7D3wI/export?format=xlsx'
+url1 = 'cole a url aqui'
+url2 = 'cole a url aqui'
 
 
 df1 = pd.read_excel(url1, sheet_name='0.3. Menu')
@@ -23,7 +23,7 @@ df1 = df1.rename(columns={
 
 })
 
-caminho_arquivo_saida = r'C:\Users\maest\OneDrive\Área de Trabalho\tratamento\tratamentoResultado_Final.xlsx'
+caminho_arquivo_saida = r'mude para diretório de sua escolha e adicione a extensão excel.xlsx'
 
 with pd.ExcelWriter(caminho_arquivo_saida, engine='xlsxwriter') as writer:
     df1.to_excel(writer, sheet_name='MENU', index=False)
