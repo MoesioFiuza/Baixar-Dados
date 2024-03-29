@@ -1,0 +1,19 @@
+import pandas as pd
+
+planilha = r'cole aqui a url'
+sheet_name = '2. Morador'
+
+df = pd.read_excel(planilha, sheet_name=sheet_name)
+
+df = df.apply(lambda x: x.str.strip() if x.dtype == "O" else x)
+
+df = df.fillna('')
+
+df['Endereço Creche'] = df['Nome da Creche/Pre escola'] + ", " + df['endereço da creche/pré escola '] + ", " + df['Bairro Creche/Pre escola'] + " - " + df['Município CRECHE/Pre Escola']
+df['Escola 1'] = df['Qual o nome da instituição'] + ", " + df['Endereco_2'] + ", " + df['Bairro_2'] + " - " + df['Morador_Sabe_Informar_Municipio'] 
+df['Escola 2'] = df['Qual o nome da instiuição (2)'] + ", " + df['Morador_Sabe_Informar_Endereco_Outro'] + ", " + df['Morador_Sabe_Informar_Bairro_Outro'] + " - " + df['Morador_Sabe_Informar_Municipio_Outro']
+df['Trabalho 1'] = df['Nome_Local_Trabalho'] + ", " + df['Morador_Sabe_Informar_Endereco_Trabalho'] + ", " + df['Morador_Sabe_Informar_Bairro_Trabalho'] + " - " + df['Morador_Sabe_Informar_Municipio_Trabalho']
+df['Trabalho 2'] = df['Nome_Local_Trabalho_Outro'] + ", " + df['Morador_Sabe_Informar_Endereco_Trabalho_Outro'] + ", " + df['Morador_Sabe_Informar_Bairro_Trabalho_Outro'] + " - " + df['Morador_Sabe_Informar_Municipio_Trabalho_Outro']
+
+with pd.ExcelWriter(planilha, engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:
+    df.to_excel(writer, sheet_name=sheet_name, index=False)
